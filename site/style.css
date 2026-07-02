@@ -180,14 +180,10 @@ body::before {
 
 .roadmap-line__bg {
     stroke: rgba(62, 84, 58, 0.08); /* Светло-оливковый прозрачный фон */
-    stroke-linecap: round;
-    stroke-linejoin: round;
 }
 
 .roadmap-line__fill {
     stroke: rgba(62, 84, 58, 0.35); /* Полупрозрачный фирменный зеленый */
-    stroke-linecap: round;
-    stroke-linejoin: round;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     transition: stroke-dashoffset 0.05s linear;
