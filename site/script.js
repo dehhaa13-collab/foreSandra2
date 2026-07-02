@@ -189,7 +189,8 @@
             const waveLength = 2000;
             const frequency = (Math.PI * 2) / waveLength;
 
-            for (let y = 0; y <= svgHeight; y += 4) {
+            // Шаг 20px вместо 4px делает путь менее тяжелым для рендеринга (особенно в Safari)
+            for (let y = 0; y <= svgHeight; y += 20) {
                 let currentCenter;
                 
                 if (y < yStartCurve) {
@@ -214,9 +215,10 @@
             bgPath.setAttribute('d', d);
             fillPath.setAttribute('d', d);
 
-            // Set dasharray to total path length
+            // В Safari бывают баги, если длина пути посчитана не совсем точно, и пунктир начинает повторяться.
+            // Чтобы этого избежать, задаем длину пустоты (gap) в 2 раза больше длины пути.
             const pathLength = fillPath.getTotalLength();
-            fillPath.style.strokeDasharray = pathLength;
+            fillPath.style.strokeDasharray = `${pathLength} ${pathLength * 2}`;
             fillPath.style.strokeDashoffset = pathLength;
 
             return pathLength;
