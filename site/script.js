@@ -48,10 +48,12 @@
         const revealElements = document.querySelectorAll('.reveal-up, .split-text');
         const staggerElements = document.querySelectorAll('.stagger');
 
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        
         const observerOptions = {
             root: null,
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: isMobile ? 0.05 : 0.15,
+            rootMargin: isMobile ? '0px 0px 0px 0px' : '0px 0px -50px 0px'
         };
 
         // Observer for simple reveal-up elements and split-text

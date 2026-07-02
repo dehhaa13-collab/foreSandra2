@@ -766,6 +766,7 @@ main {
     transform: translateY(30px) scale(0.98);
     transition: opacity var(--duration-normal) var(--ease-out),
                 transform var(--duration-normal) var(--ease-out);
+    will-change: transform, opacity;
 }
 
 /* Split-text words — initial state set by JS */
@@ -783,6 +784,7 @@ main {
     display: inline-block;
     transform: translateY(110%);
     transition: transform var(--duration-slow) var(--ease-out);
+    will-change: transform;
 }
 
 /* Visible state */
@@ -1032,6 +1034,12 @@ main {
     
     .detail-block {
         padding: var(--space-md);
+    }
+    
+    /* Уменьшаем амплитуду анимации для телефонов, чтобы избежать лагов */
+    .reveal-up:not(.is-visible),
+    .stagger:not(.is-visible) {
+        transform: translateY(15px) scale(1);
     }
 }
 
