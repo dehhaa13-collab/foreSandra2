@@ -244,6 +244,9 @@
     // 6. GLOW EFFECT — Highlight blocks when they become visible
     // ============================================================
     function initGlowEffect() {
+        // Отключаем на мобильных (из-за быстрого скролла эффект тени выглядит как баг загрузки)
+        if (window.innerWidth < 768) return;
+
         const glowTargets = document.querySelectorAll('.card--glass, .metric-category, .results-block');
 
         const glowObserver = new IntersectionObserver((entries) => {
