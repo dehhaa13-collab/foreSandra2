@@ -1018,6 +1018,12 @@ main {
         padding: var(--space-sm) 0;
     }
     
+    /* Корректируем позицию точек на телефоне под новые отступы */
+    .detail-list__item::before,
+    .results-list--assets .results-list__item::before {
+        top: calc(var(--space-sm) + 0.85em - 3px);
+    }
+    
     .detail-block {
         padding: var(--space-md);
     }
