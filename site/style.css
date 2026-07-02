@@ -975,8 +975,9 @@ main {
    ============================================================ */
 
 @media (max-width: 768px) {
-    /* Прячем длинную SVG змейку на телефонах */
-    .roadmap-line {
+    /* Прячем SVG змейку и шарик-указатель на телефонах (они мешают чтению) */
+    .roadmap-line,
+    #scroll-orb {
         display: none !important;
     }
 
@@ -1012,6 +1013,25 @@ main {
         font-size: 0.95rem;
         text-align: left; /* На узком экране центрированный абзац читается хуже */
         padding: var(--space-sm) 0;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: var(--space-md);
+    }
+    
+    .section-title--sm {
+        font-size: 1.2rem;
+    }
+
+    .detail-list__item,
+    .results-list__item {
+        font-size: 0.95rem;
+        padding: var(--space-sm) 0;
+    }
+    
+    .detail-block {
+        padding: var(--space-md);
     }
 }
 
