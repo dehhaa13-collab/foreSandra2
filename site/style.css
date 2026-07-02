@@ -1,28 +1,4 @@
 
-@media (max-width: 900px) {
-    .metric-category {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .metric-category__title {
-        flex: auto;
-        border-right: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        padding-right: 0;
-        padding-bottom: var(--space-sm);
-        margin-bottom: var(--space-md);
-    }
-    .metric-card {
-        border-left: none !important;
-        border-top: 1px dashed rgba(0, 0, 0, 0.1);
-        padding: var(--space-md) 0 !important;
-    }
-    .metric-card:nth-of-type(1),
-    .metric-category__title + .metric-card {
-        border-top: none;
-        padding-top: 0 !important;
-    }
-}
 
 /* ============================================================
    DESIGN SYSTEM — DARK ELITE (Комплексная упаковка активов)

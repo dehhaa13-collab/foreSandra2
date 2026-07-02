@@ -90,30 +90,6 @@
         staggerElements.forEach(el => staggerObserver.observe(el));
     }
 
-    // ============================================================
-    // 3. SCROLL PROGRESS BAR
-    // ============================================================
-    function initScrollProgress() {
-        const bar = document.querySelector('.scroll-progress__bar');
-        if (!bar) return;
-
-        let ticking = false;
-
-        function updateProgress() {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            bar.style.width = `${Math.min(progress, 100)}%`;
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(updateProgress);
-                ticking = true;
-            }
-        }, { passive: true });
-    }
 
     // ============================================================
     // 4. DOT NAVIGATION
@@ -289,38 +265,6 @@
     }
 
     // ============================================================
-    // INIT — Run everything on DOM ready
-    // ============================================================
-    function init() {
-        initSplitText();
-
-        // If IntersectionObserver is not supported, show everything
-        if (!('IntersectionObserver' in window)) {
-            document.querySelectorAll('.reveal-up, .stagger').forEach(el => {
-                el.classList.add('is-visible');
-            });
-            document.querySelectorAll('.split-text').forEach(el => {
-                el.classList.add('is-visible');
-            });
-            return;
-        }
-
-        initScrollReveal();
-        initScrollProgress();
-        initRoadmapLine();
-        initGlowEffect();
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-
-})();
-
-
-    // ============================================================
     // 5. SCROLL ORB (Светящийся золотой кружок)
     // ============================================================
     function initScrollOrb() {
@@ -404,6 +348,34 @@
             requestAnimationFrame(updateOrbPosition);
         }, 500);
     }
-    
-    // Запускаем
-    initScrollOrb();
+
+    // ============================================================
+    // INIT — Run everything on DOM ready
+    // ============================================================
+    function init() {
+        initSplitText();
+
+        // If IntersectionObserver is not supported, show everything
+        if (!('IntersectionObserver' in window)) {
+            document.querySelectorAll('.reveal-up, .stagger').forEach(el => {
+                el.classList.add('is-visible');
+            });
+            document.querySelectorAll('.split-text').forEach(el => {
+                el.classList.add('is-visible');
+            });
+            return;
+        }
+
+        initScrollReveal();
+        initRoadmapLine();
+        initGlowEffect();
+        initScrollOrb();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();
