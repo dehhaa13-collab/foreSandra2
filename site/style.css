@@ -1024,7 +1024,11 @@ main {
         font-size: 1.2rem;
     }
 
-    .detail-list__item,
+    .detail-list__item {
+        font-size: 0.95rem;
+        padding: var(--space-sm) 0 var(--space-sm) var(--space-md);
+    }
+    
     .results-list__item {
         font-size: 0.95rem;
         padding: var(--space-sm) 0;
