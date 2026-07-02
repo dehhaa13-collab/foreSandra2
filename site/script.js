@@ -240,32 +240,7 @@
         });
     }
 
-    // ============================================================
-    // 6. GLOW EFFECT — Highlight blocks when they become visible
-    // ============================================================
-    function initGlowEffect() {
-        // Отключаем на мобильных (из-за быстрого скролла эффект тени выглядит как баг загрузки)
-        if (window.innerWidth < 768) return;
 
-        const glowTargets = document.querySelectorAll('.card--glass, .metric-category, .results-block');
-
-        const glowObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('glow-active');
-                    // Remove glow after a moment
-                    setTimeout(() => {
-                        entry.target.classList.remove('glow-active');
-                    }, 1500);
-                    glowObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.5
-        });
-
-        glowTargets.forEach(el => glowObserver.observe(el));
-    }
 
     // ============================================================
     // 5. SCROLL ORB (Светящийся золотой кружок)
@@ -371,7 +346,6 @@
 
         initScrollReveal();
         initRoadmapLine();
-        initGlowEffect();
         initScrollOrb();
     }
 
