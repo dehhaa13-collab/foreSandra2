@@ -95,6 +95,13 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-text);
 }
 
+/* Автоматически делаем первую букву заглавной в списках и карточках */
+.card__text::first-letter,
+.detail-list__item::first-letter,
+.results-list__item::first-letter {
+    text-transform: uppercase;
+}
+
 /* ---------- Noise Overlay ---------- */
 .noise-overlay {
     position: fixed;
