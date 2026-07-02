@@ -941,22 +941,23 @@ main {
 
 
 @media (max-width: 900px) {
+    /* Перестраиваем сетку показателей в одну колонку */
     .metric-category {
-        flex-direction: column;
-        align-items: stretch;
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
     }
     .metric-category__title {
-        flex: auto;
         border-right: none;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         padding-right: 0;
         padding-bottom: var(--space-sm);
-        margin-bottom: var(--space-md);
+        justify-content: center;
+        text-align: center;
     }
     .metric-card {
         border-left: none !important;
         border-top: 1px dashed rgba(0, 0, 0, 0.1);
-        padding: var(--space-md) 0 !important;
+        padding: var(--space-md) 0 0 0 !important;
     }
     .metric-card:nth-of-type(1),
     .metric-category__title + .metric-card {
@@ -969,29 +970,44 @@ main {
    RESPONSIVE — Mobile adjustments
    ============================================================ */
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+    /* Прячем длинную SVG змейку на телефонах */
     .roadmap-line {
-        display: none;
+        display: none !important;
     }
 
     .slide {
-        padding: var(--space-lg) var(--space-md);
+        padding: var(--space-lg) var(--space-sm);
     }
 
     .slide__inner {
         padding-right: 0;
     }
 
-    .cards-grid {
+    .cards-grid,
+    .results-list {
         grid-template-columns: 1fr;
+    }
+    
+    .slide--hero {
+        min-height: auto;
+        padding-top: var(--space-lg);
+        padding-bottom: var(--space-2xl);
     }
 
     .hero__title {
-        text-align: left;
+        font-size: 2.2rem;
+    }
+    
+    .hero__subtitle {
+        font-size: 1.1rem;
+        margin-bottom: var(--space-md);
     }
 
-    .results-list {
-        grid-template-columns: 1fr;
+    .hero__description {
+        font-size: 0.95rem;
+        text-align: left; /* На узком экране центрированный абзац читается хуже */
+        padding: var(--space-sm) 0;
     }
 }
 
@@ -1035,6 +1051,6 @@ button:focus:not(:focus-visible) {
 /* Soft glow for text when orb lands */
 .title-glow-active {
     transition: text-shadow 1.2s ease, color 1.2s ease !important;
-    /* Мягкое зеленое (light olive) свечение, идеально подходящее под темные буквы */
-    text-shadow: 0 0 15px rgba(100, 130, 90, 0.5), 0 0 30px rgba(100, 130, 90, 0.25) !important;
+    /* Очень мягкое, едва заметное зеленое свечение */
+    text-shadow: 0 0 10px rgba(100, 130, 90, 0.3), 0 0 25px rgba(100, 130, 90, 0.15) !important;
 }
