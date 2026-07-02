@@ -129,116 +129,6 @@
         slides.forEach(slide => slideObserver.observe(slide));
     }
 
-    // ============================================================
-    // 5. SVG ROADMAP LINE
-    // ============================================================
-    function initRoadmapLine() {
-        const svg = document.querySelector('.roadmap-line');
-        const bgPath = document.querySelector('.roadmap-line__bg');
-        const fillPath = document.querySelector('.roadmap-line__fill');
-
-        if (!svg || !bgPath || !fillPath) return;
-
-        // Only show on screens wide enough
-        if (window.innerWidth < 641) return;
-
-        function generatePath() {
-            const height = document.documentElement.scrollHeight;
-            const svgHeight = height;
-            svg.setAttribute('height', svgHeight);
-            svg.style.height = `${svgHeight}px`;
-
-            // Генерируем путь: старт слева, переход вправо к 30%, плавная волна везде
-            const points = [];
-            const w = document.documentElement.clientWidth;
-            
-            // Отступы: слева 15%, справа 85% (на 5% шире, чем было)
-            const leftX = w * 0.15;
-            const rightX = w * 0.85;
-            
-            // Начинаем переход на 15% высоты и заканчиваем ровно на 30%
-            const yStartCurve = svgHeight * 0.15;
-            const yEndCurve = svgHeight * 0.30;
-            
-            // Очень мягкий изгиб (амплитуда 60px)
-            const amplitude = 60;
-            
-            // Очень плавная волна (один изгиб на 2000px скролла)
-            const waveLength = 2000;
-            const frequency = (Math.PI * 2) / waveLength;
-
-            // Шаг 20px вместо 4px делает путь менее тяжелым для рендеринга (особенно в Safari)
-            for (let y = 0; y <= svgHeight; y += 20) {
-                let currentCenter;
-                
-                if (y < yStartCurve) {
-                    // До 15% центр линии держится слева
-                    currentCenter = leftX;
-                } else if (y >= yStartCurve && y <= yEndCurve) {
-                    // Плавный S-образный переход на правую сторону (от 15% до 30%)
-                    const progress = (y - yStartCurve) / (yEndCurve - yStartCurve);
-                    const t = 0.5 - Math.cos(progress * Math.PI) * 0.5;
-                    currentCenter = leftX + t * (rightX - leftX);
-                } else {
-                    // После 30% центр фиксируется справа
-                    currentCenter = rightX;
-                }
-                
-                // Накладываем плавную синусоиду поверх любой траектории, чтобы линия была живой на всем пути
-                const x = currentCenter + Math.sin(y * frequency) * amplitude;
-                points.push(`${y === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y}`);
-            }
-
-            const d = points.join(' ');
-            bgPath.setAttribute('d', d);
-            fillPath.setAttribute('d', d);
-
-            // В Safari бывают баги, если длина пути посчитана не совсем точно, и пунктир начинает повторяться.
-            // Чтобы этого избежать, задаем длину пустоты (gap) в 2 раза больше длины пути.
-            const pathLength = fillPath.getTotalLength();
-            fillPath.style.strokeDasharray = `${pathLength} ${pathLength * 2}`;
-            fillPath.style.strokeDashoffset = pathLength;
-
-            return pathLength;
-        }
-
-        let pathLength = generatePath();
-        
-        // Update fill on scroll with requestAnimationFrame
-        let ticking = false;
-
-        function updateLine() {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? scrollTop / docHeight : 0;
-            fillPath.style.strokeDashoffset = pathLength * (1 - progress);
-            ticking = false;
-        }
-
-        updateLine(); // Вызываем сразу при загрузке
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(updateLine);
-                ticking = true;
-            }
-        }, { passive: true });
-
-        // Recalculate on resize
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                if (window.innerWidth < 641) {
-                    svg.style.display = 'none';
-                } else {
-                    svg.style.display = '';
-                    pathLength = generatePath();
-                    updateLine();
-                }
-            }, 250);
-        });
-    }
 
 
 
@@ -345,7 +235,6 @@
         }
 
         initScrollReveal();
-        initRoadmapLine();
         initScrollOrb();
     }
 
