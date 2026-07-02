@@ -1007,8 +1007,8 @@ main {
 
     .hero__description {
         font-size: 0.95rem;
-        text-align: left; /* На узком экране центрированный абзац читается хуже */
-        padding: var(--space-sm) 0;
+        text-align: center; /* Короткий текст лучше смотрится по центру */
+        padding: var(--space-md) 0;
     }
 
     .section-title {
